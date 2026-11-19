@@ -1,0 +1,14 @@
+target/
+*.class
+
+src/main/resources/application-secrets.properties
+
+nb-configuration.xml
+nbproject/private/
+
+.idea/
+*.iml
+.vscode/
+
+.DS_Store
+Thumbs.db
