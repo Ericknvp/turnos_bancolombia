@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bancolombia Gestión de Turnos - Pantalla Sala (TV)</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Inter Font -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-background": "#0b1c30",
+            "error-container": "#ffdad6",
+            "outline": "#7e775f",
+            "on-surface-variant": "#4c4732",
+            "primary": "#6d5e00",
+            "surface-tint": "#6d5e00",
+            "surface-bright": "#f8f9ff",
+            "surface-dim": "#cbdbf5",
+            "surface": "#f8f9ff",
+            "surface-variant": "#d3e4fe",
+            "background": "#f8f9ff",
+            "on-primary": "#ffffff",
+            "primary-fixed": "#ffe251",
+            "on-primary-fixed": "#211b00",
+            "error": "#ba1a1a",
+            "inverse-surface": "#213145",
+            "surface-container": "#e5eeff",
+            "secondary-container": "#e2dfde",
+            "on-secondary-fixed": "#1b1b1b",
+            "inverse-primary": "#e4c600",
+            "on-error": "#ffffff",
+            "secondary": "#5f5e5e",
+            "on-secondary-container": "#636262",
+            "on-error-container": "#93000a",
+            "on-surface": "#0b1c30",
+            "primary-container": "#ffdd00",
+            "surface-container-highest": "#d3e4fe",
+            "on-secondary": "#ffffff",
+            "tertiary-fixed": "#dbe1ff",
+            "surface-container-high": "#dce9ff",
+            "on-tertiary-fixed-variant": "#003ea8",
+            "on-secondary-fixed-variant": "#474746",
+            "tertiary": "#0053db",
+            "on-tertiary-container": "#0a56df",
+            "surface-container-low": "#eff4ff",
+            "on-primary-container": "#716100",
+            "tertiary-fixed-dim": "#b4c5ff",
+            "primary-fixed-dim": "#e4c600",
+            "surface-container-lowest": "#ffffff",
+            "secondary-fixed": "#e5e2e1",
+            "tertiary-container": "#d5ddff",
+            "outline-variant": "#cfc6ab",
+            "on-tertiary": "#ffffff",
+            "on-primary-fixed-variant": "#524600",
+            "secondary-fixed-dim": "#c8c6c5",
+            "on-tertiary-fixed": "#00174b",
+            "inverse-on-surface": "#eaf1ff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-xs": "0.25rem",
+            "margin-tv": "3rem",
+            "space-xl": "2rem",
+            "margin-mobile": "1rem",
+            "gutter": "1.5rem",
+            "space-md": "1rem",
+            "gutter-tv": "2.5rem",
+            "space-lg": "1.5rem",
+            "space-2xl": "3rem",
+            "space-sm": "0.5rem",
+            "margin": "1.5rem"
+          },
+          "fontFamily": {
+            "label-lg": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-sm": ["Inter"],
+            "token-ticket": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "body-md": ["Inter"],
+            "body-lg": ["Inter"],
+            "headline-md": ["Inter"],
+            "display-turn-tv": ["Inter"],
+            "body-sm": ["Inter"],
+            "headline-lg": ["Inter"],
+            "title-md": ["Inter"],
+            "display-turn-kiosk": ["Inter"]
+          },
+          "fontSize": {
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "token-ticket": ["36px", { "lineHeight": "40px", "letterSpacing": "0.05em", "fontWeight": "800" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "display-turn-tv": ["80px", { "lineHeight": "88px", "letterSpacing": "-0.03em", "fontWeight": "800" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "display-turn-kiosk": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    
+    @keyframes marquee {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+    .animate-marquee {
+      display: inline-block;
+      white-space: nowrap;
+      animation: marquee 28s linear infinite;
+    }
+
+    @keyframes pulse-yellow {
+      0%, 100% {
+        box-shadow: 0 0 25px rgba(255, 221, 0, 0.4), inset 0 0 15px rgba(255, 221, 0, 0.15);
+      }
+      50% {
+        box-shadow: 0 0 50px rgba(255, 221, 0, 0.75), inset 0 0 25px rgba(255, 221, 0, 0.3);
+      }
+    }
+    .hero-glow {
+      animation: pulse-yellow 3s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-[#111827] text-surface-container-lowest h-screen w-screen overflow-hidden flex flex-col font-body-md select-none">
+<!-- TOP APP BAR / CABECERA TV CORPORATIVA (ALTA VISIBILIDAD) -->
+<header class="h-20 bg-[#161F30] px-margin-tv flex items-center justify-between border-b border-[#2A374D] flex-shrink-0">
+<!-- Logotipo Corporativo & Ubicación -->
+<div class="flex items-center gap-space-lg">
+<div class="flex items-center gap-space-sm">
+<span class="w-3.5 h-10 bg-primary-container rounded"></span>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md font-bold tracking-tight text-surface-container-lowest leading-none">Bancolombia</span>
+<span class="font-label-md text-label-md text-[#94A3B8] tracking-widest mt-1">GESTIÓN DE TURNOS</span>
+</div>
+</div>
+<div class="h-8 w-px bg-[#2A374D]"></div>
+<div class="flex items-center gap-space-xs text-[#E2E8F0]">
+<span class="material-symbols-outlined text-primary-container" style="font-size: 24px;">storefront</span>
+<span class="font-title-md text-title-md font-semibold text-surface-container-lowest">Sucursal Medellín - Calle 50</span>
+</div>
+</div>
+<!-- Indicador de Canal y Horario Grande -->
+<div class="flex items-center gap-space-xl">
+<div class="flex items-center gap-space-xs bg-[#1F293D] px-space-md py-space-xs rounded-lg border border-[#334155]">
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+<span class="font-label-md text-label-md text-[#CBD5E1]">SISTEMA EN LÍNEA</span>
+</div>
+<div class="text-right">
+<div class="font-headline-lg text-headline-lg font-bold text-surface-container-lowest leading-tight tracking-normal" id="clock">10:45 AM</div>
+<div class="font-label-md text-label-md text-primary-container font-semibold tracking-wide" id="date">Martes, 11 de Noviembre 2026</div>
+</div>
+</div>
+</header>
+<!-- CONTENEDOR PRINCIPAL 16:9 SPLIT VIEW (60% HERO / 40% LISTA RECIENTES) -->
+<main class="flex-1 grid grid-cols-12 gap-gutter-tv p-margin-tv overflow-hidden items-stretch">
+<!-- ZONA IZQUIERDA: HERO TURNO ACTUAL (COL-SPAN-7 / 60% WIDTH) -->
+<section class="col-span-7 flex flex-col justify-between">
+<!-- HERO CARD CONTAINER CON GLOW BANCOLOMBIA -->
+<div class="relative bg-[#1A2234] border-2 border-primary-container rounded-xl p-space-xl flex-1 flex flex-col justify-between hero-glow">
+<!-- Header del Turno Actual -->
+<div class="flex items-center justify-between border-b border-[#2A374D] pb-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary-container" style="font-size: 32px; font-variation-settings: 'FILL' 1;">volume_up</span>
+<div>
+<span class="font-title-md text-title-md font-bold tracking-widest text-primary-container block leading-none">ÚLTIMO TURNO LLAMADO</span>
+<span class="font-label-md text-label-md text-[#94A3B8]">NOW SERVING</span>
+</div>
+</div>
+<!-- Badge de Prioridad -->
+<div class="flex items-center gap-space-xs bg-[#EFF6FF] border border-[#BFDBFE] px-space-md py-space-xs rounded-lg">
+<span class="material-symbols-outlined text-[#2563EB]" style="font-size: 24px; font-variation-settings: 'FILL' 1;">accessible_forward</span>
+<span class="font-label-lg text-label-lg font-bold text-[#2563EB] tracking-wide">ATENCIÓN PREFERENCIAL</span>
+</div>
+</div>
+<!-- CÓDIGO DE TURNO GIGANTE (LEGIBLE A 15-20 METROS) -->
+<div class="my-auto py-space-lg text-center flex flex-col items-center justify-center">
+<span class="font-label-lg text-label-lg text-[#94A3B8] font-semibold tracking-widest uppercase mb-1">CÓDIGO DE TURNO</span>
+<div class="font-display-turn-tv text-display-turn-tv font-black text-surface-container-lowest tracking-tight py-2 leading-none drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
+            CAJ-003
+          </div>
+<div class="flex items-center gap-space-sm mt-3 text-primary-container">
+<span class="material-symbols-outlined animate-bounce text-primary-container" style="font-size: 36px;">arrow_downward</span>
+<span class="font-title-md text-title-md font-semibold text-primary-container">POR FAVOR ACÉRQUESE AL MÓDULO INDICADO</span>
+<span class="material-symbols-outlined animate-bounce text-primary-container" style="font-size: 36px;">arrow_downward</span>
+</div>
+</div>
+<!-- DESTINO ASIGNADO EN BLOQUE AMARILLO BANCOLOMBIA DE ALTO IMPACTO -->
+<div class="mt-auto">
+<div class="bg-primary-container rounded-lg p-space-lg text-[#1C1C1C] flex items-center justify-between shadow-xl">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-bold tracking-widest uppercase text-on-primary-container leading-none">DIRÍJASE A:</span>
+<span class="font-headline-lg text-headline-lg font-black tracking-tight text-[#1C1C1C] mt-1 leading-none">
+                MÓDULO 02 - CAJA PRINCIPAL
+              </span>
+</div>
+<div class="w-16 h-16 rounded-full bg-[#1C1C1C] flex items-center justify-center text-primary-container flex-shrink-0">
+<span class="material-symbols-outlined" style="font-size: 36px;">arrow_forward</span>
+</div>
+</div>
+<!-- NOTA DE PRIVACIDAD EN EL FOOTER DEL HERO -->
+<div class="flex items-center justify-between text-body-sm font-body-sm text-[#94A3B8] mt-space-sm px-space-xs">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined" style="font-size: 16px;">verified_user</span>
+              Privacidad y Seguridad Garantizada
+            </span>
+<span>Sin exposición de datos personales según Ley 1581</span>
+</div>
+</div>
+</div>
+</section>
+<!-- ZONA DERECHA: HISTORIAL Y LISTA DE TURNOS RECIENTES (COL-SPAN-5 / 40% WIDTH) -->
+<section class="col-span-5 flex flex-col justify-between">
+<!-- CONTENEDOR DE LA TABLA -->
+<div class="bg-[#1A2234] border border-[#2A374D] rounded-xl flex-1 flex flex-col overflow-hidden shadow-lg">
+<!-- HEADER DE LA TABLA DE LLAMADOS -->
+<div class="px-space-lg py-space-md bg-[#161F30] border-b border-[#2A374D] flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary-container" style="font-size: 24px;">history</span>
+<h2 class="font-title-md text-title-md font-bold text-surface-container-lowest tracking-wide">TURNOS LLAMADOS RECIENTES</h2>
+</div>
+<span class="font-label-md text-label-md text-[#94A3B8] font-semibold">ESTADO ACTUAL</span>
+</div>
+<!-- LISTA DE TURNOS EN TABLA CON FILAS DE ALTA DENSIDAD -->
+<div class="flex-1 flex flex-col justify-around p-space-sm divide-y divide-[#2A374D]">
+<!-- FILA 1 -->
+<div class="flex items-center justify-between px-space-md py-space-sm bg-[#202B42] rounded border-l-4 border-primary-container transition-colors">
+<div class="flex items-center gap-space-md">
+<span class="font-headline-sm text-headline-sm font-extrabold text-surface-container-lowest tracking-wider">CAJ-002</span>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md font-bold text-primary-container">Módulo 01</span>
+<span class="font-body-sm text-body-sm text-[#94A3B8]">Caja Rápida</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs bg-[#FFDD00]/20 border border-primary-container px-space-sm py-1 rounded">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span class="font-label-md text-label-md font-bold text-primary-container">En Módulo</span>
+</div>
+</div>
+<!-- FILA 2 -->
+<div class="flex items-center justify-between px-space-md py-space-sm hover:bg-[#1E293B] rounded transition-colors">
+<div class="flex items-center gap-space-md">
+<span class="font-headline-sm text-headline-sm font-extrabold text-surface-container-lowest tracking-wider">ASES-014</span>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md font-semibold text-surface-container-lowest">Módulo 05</span>
+<span class="font-body-sm text-body-sm text-[#94A3B8]">Asesoría Comercial</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs bg-[#24314A] px-space-sm py-1 rounded border border-[#334155]">
+<span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+<span class="font-label-md text-label-md text-[#CBD5E1]">Atendiendo</span>
+</div>
+</div>
+<!-- FILA 3 -->
+<div class="flex items-center justify-between px-space-md py-space-sm hover:bg-[#1E293B] rounded transition-colors">
+<div class="flex items-center gap-space-md">
+<span class="font-headline-sm text-headline-sm font-extrabold text-surface-container-lowest tracking-wider">CAJ-001</span>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md font-semibold text-surface-container-lowest">Módulo 03</span>
+<span class="font-body-sm text-body-sm text-[#94A3B8]">Caja Rápida</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs bg-[#24314A] px-space-sm py-1 rounded border border-[#334155]">
+<span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+<span class="font-label-md text-label-md text-[#CBD5E1]">Atendiendo</span>
+</div>
+</div>
+<!-- FILA 4 -->
+<div class="flex items-center justify-between px-space-md py-space-sm hover:bg-[#1E293B] rounded transition-colors">
+<div class="flex items-center gap-space-md">
+<span class="font-headline-sm text-headline-sm font-extrabold text-surface-container-lowest tracking-wider">EMP-008</span>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md font-semibold text-surface-container-lowest">Módulo 04</span>
+<span class="font-body-sm text-body-sm text-[#94A3B8]">Empresas y Pymes</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs bg-[#24314A] px-space-sm py-1 rounded border border-[#334155]">
+<span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+<span class="font-label-md text-label-md text-[#CBD5E1]">Atendiendo</span>
+</div>
+</div>
+<!-- FILA 5 -->
+<div class="flex items-center justify-between px-space-md py-space-sm hover:bg-[#1E293B] rounded transition-colors">
+<div class="flex items-center gap-space-md">
+<span class="font-headline-sm text-headline-sm font-extrabold text-surface-container-lowest tracking-wider">ASES-013</span>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md font-semibold text-surface-container-lowest">Módulo 06</span>
+<span class="font-body-sm text-body-sm text-[#94A3B8]">Crédito e Inversión</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs bg-[#24314A] px-space-sm py-1 rounded border border-[#334155]">
+<span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+<span class="font-label-md text-label-md text-[#CBD5E1]">Atendiendo</span>
+</div>
+</div>
+</div>
+<!-- FOOTER DE ESTADÍSTICA RÁPIDA DE LA SUCURSAL -->
+<div class="p-space-md bg-[#161F30] border-t border-[#2A374D] flex items-center justify-between">
+<div class="flex items-center gap-space-xs text-[#94A3B8]">
+<span class="material-symbols-outlined text-primary-container" style="font-size: 20px;">timer</span>
+<span class="font-label-md text-label-md">Tiempo de espera estimado:</span>
+</div>
+<span class="font-label-lg text-label-lg font-bold text-surface-container-lowest">~ 4 a 7 min</span>
+</div>
+</div>
+</section>
+</main>
+<!-- TICKER INFERIOR DINÁMICO (CINTA DE NOTICIAS Y SEGURIDAD BANCARIA) -->
+<footer class="h-14 bg-[#0F172A] border-t border-[#2A374D] flex items-center overflow-hidden flex-shrink-0 relative">
+<!-- Etiqueta Fija de Seguridad -->
+<div class="h-full bg-primary-container text-[#1C1C1C] font-label-lg text-label-lg font-extrabold flex items-center px-space-lg gap-space-xs z-10 shadow-lg flex-shrink-0">
+<span class="material-symbols-outlined" style="font-size: 22px; font-variation-settings: 'FILL' 1;">security</span>
+<span>INFORMACIÓN BANCARIA</span>
+</div>
+<!-- Contenido en Marquesina Continua -->
+<div class="flex-1 overflow-hidden relative flex items-center">
+<div class="animate-marquee font-body-lg text-body-lg text-[#E2E8F0] tracking-wide flex items-center gap-space-2xl">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container" style="font-size: 20px;">lock</span>
+<strong>Por su seguridad:</strong> Bancolombia NUNCA le solicitará sus claves, códigos de seguridad o tokens por teléfono, correo electrónico ni mensajes de texto.
+        </span>
+<span class="text-primary-container">•</span>
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container" style="font-size: 20px;">badge</span>
+          Recuerde tener su documento de identidad original a la mano antes de pasar al módulo asignado.
+        </span>
+<span class="text-primary-container">•</span>
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container" style="font-size: 20px;">phone_iphone</span>
+          Descargue la App Bancolombia y realice sus transferencias, pagos y certificados sin filas desde cualquier lugar.
+        </span>
+</div>
+</div>
+<!-- Indicador de Audio/Voz Activa -->
+<div class="h-full bg-[#161F30] px-space-md border-l border-[#2A374D] flex items-center gap-space-xs text-[#94A3B8] z-10 flex-shrink-0">
+<span class="material-symbols-outlined text-primary-container" style="font-size: 20px;">graphic_eq</span>
+<span class="font-label-md text-label-md font-semibold text-[#CBD5E1]">Audio Activo</span>
+</div>
+</footer>
+<!-- SCRIPT PARA RELOJ EN TIEMPO REAL -->
+<script>
+    function updateClock() {
+      const now = new Date();
+      let hours = now.getHours();
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12;
+      hours = hours ? hours : 12; // Formato 12 horas
+      
+      const clockElement = document.getElementById('clock');
+      if (clockElement) {
+        clockElement.textContent = `${hours}:${minutes} ${ampm}`;
+      }
+
+      const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+      const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+      
+      const dayName = days[now.getDay()];
+      const dayNum = now.getDate();
+      const monthName = months[now.getMonth()];
+      const year = now.getFullYear();
+
+      const dateElement = document.getElementById('date');
+      if (dateElement) {
+        dateElement.textContent = `${dayName}, ${dayNum} de ${monthName} ${year}`;
+      }
+    }
+
+    // Inicializar reloj
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
+</body></html>
