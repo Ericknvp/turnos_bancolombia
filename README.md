@@ -1,4 +1,4 @@
-# Sistema de turnos con prioridades - Bancolombia (backend)
+# Sistema de turnos con prioridades - Bancolombia 
 
 Proyecto final de la asignatura Cliente Servidor. Backend del sistema de atención por turnos con reglas de prioridad, FIFO, envejecimiento y proporción de atención 3 a 1, protegido con Spring Security y JWT.
 
