@@ -10,4 +10,6 @@ public class TurnoPublicoDTO {
     private String servicio;
     private String modulo;
     private String estado;
+    private String categoria;
+    private boolean esPreferente;
 }

@@ -1,5 +1,6 @@
 package com.example.turnos.service;
 
+import com.example.turnos.dto.ConsultaTurnoPublicoDTO;
 import com.example.turnos.dto.TurnoPublicoDTO;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,7 +19,13 @@ public class PublicoService {
                         t.getCodigo(),
                         t.getServicio().getNombre(),
                         t.getModulo() != null ? t.getModulo().getNombre() : null,
-                        t.getEstado().name()))
+                        t.getEstado().name(),
+                        t.getCategoria().getNombre(),
+                        t.getCategoria().isEsPreferente()))
                 .collect(Collectors.toList());
+    }
+
+    public ConsultaTurnoPublicoDTO consultarTurno(String codigo) {
+        return turnoService.obtenerConsultaPublica(codigo);
     }
 }

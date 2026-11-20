@@ -4,6 +4,7 @@ import com.example.turnos.entity.EstadoTurno;
 import com.example.turnos.entity.Turno;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,9 +15,15 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TurnoRepository extends JpaRepository<Turno, Long> {
 
+    Optional<Turno> findByCodigo(String codigo);
+
     List<Turno> findByServicioIdAndEstadoOrderByFechaIngresoAscIdAsc(Long servicioId, EstadoTurno estado);
 
     boolean existsByModuloIdAndEstadoIn(Long moduloId, List<EstadoTurno> estados);
+
+    boolean existsByOperadorIdAndEstadoIn(Long operadorId, List<EstadoTurno> estados);
+
+    boolean existsByCategoriaId(Long categoriaId);
 
     List<Turno> findByEstadoInOrderByFechaLlamadoDesc(List<EstadoTurno> estados);
 

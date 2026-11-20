@@ -1,12 +1,14 @@
 package com.example.turnos.service;
 
 import com.example.turnos.dto.CambioEstadoTurnoDTO;
+import com.example.turnos.dto.ConsultaTurnoPublicoDTO;
 import com.example.turnos.dto.TurnoRegistroDTO;
 import com.example.turnos.entity.AccionTurno;
 import com.example.turnos.entity.Categoria;
 import com.example.turnos.entity.ContadorProporcion;
 import com.example.turnos.entity.EstadoTurno;
 import com.example.turnos.entity.Modulo;
+import com.example.turnos.entity.Rol;
 import com.example.turnos.entity.Servicio;
 import com.example.turnos.entity.Turno;
 import com.example.turnos.entity.Usuario;
@@ -30,6 +32,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -108,15 +111,19 @@ public class TurnoService {
         if (!modulo.isActivo()) {
             throw new RelacionException("El módulo está desactivado");
         }
-        if (turnoRepository.existsByModuloIdAndEstadoIn(moduloId,
-                List.of(EstadoTurno.LLAMADO, EstadoTurno.EN_ATENCION))) {
-            throw new RelacionException("El módulo tiene un turno pendiente de resolver");
-        }
         Usuario operador = cargarUsuario(operadorUsername);
 
         Servicio servicio = modulo.getServicio();
         LocalDateTime ahora = LocalDateTime.now(zonaHoraria());
         ContadorProporcion contador = obtenerContadorBloqueado(servicio);
+        if (turnoRepository.existsByModuloIdAndEstadoIn(moduloId,
+                List.of(EstadoTurno.LLAMADO, EstadoTurno.EN_ATENCION))) {
+            throw new RelacionException("El módulo tiene un turno pendiente de resolver");
+        }
+        if (turnoRepository.existsByOperadorIdAndEstadoIn(operador.getId(),
+                List.of(EstadoTurno.LLAMADO, EstadoTurno.EN_ATENCION))) {
+            throw new RelacionException("El operador ya tiene un turno activo en otro módulo");
+        }
         reiniciarSiCambioDeDia(contador, ahora.toLocalDate());
 
         int umbralMinutos = configuracionService.obtenerUmbralMinutos();
@@ -178,6 +185,10 @@ public class TurnoService {
         Turno t = turnoRepository.findById(turnoId)
                 .orElseThrow(() -> new RecursoNoEncontradoException("Turno no encontrado: " + turnoId));
         Usuario operador = cargarUsuario(operadorUsername);
+        if (operador.getRol() != Rol.ADMINISTRADOR
+                && (t.getOperador() == null || !t.getOperador().getId().equals(operador.getId()))) {
+            throw new AccessDeniedException("El turno no está asignado a este operador");
+        }
         EstadoTurno actual = t.getEstado();
         EstadoTurno nuevo;
         LocalDateTime ahora = LocalDateTime.now(zonaHoraria());
@@ -210,7 +221,6 @@ public class TurnoService {
         }
 
         t.setEstado(nuevo);
-        t.setOperador(operador);
         Turno guardado = turnoRepository.save(t);
         historialService.registrar(guardado, actual, nuevo, operador, d.getMotivo());
         return guardado;
@@ -231,6 +241,58 @@ public class TurnoService {
     public List<Turno> obtenerLlamadosYEnAtencion() {
         return turnoRepository.findByEstadoInOrderByFechaLlamadoDesc(
                 List.of(EstadoTurno.LLAMADO, EstadoTurno.EN_ATENCION));
+    }
+
+    public ConsultaTurnoPublicoDTO obtenerConsultaPublica(String codigo) {
+        Turno turno = turnoRepository.findByCodigo(codigo.trim().toUpperCase())
+                .orElseThrow(() -> new RecursoNoEncontradoException("No existe un turno con el código " + codigo));
+
+        Integer posicionEnFila = null;
+        Integer tiempoEstimadoMinutos = null;
+
+        if (turno.getEstado() == EstadoTurno.EN_ESPERA) {
+            int umbralMinutos = configuracionService.obtenerUmbralMinutos();
+            LocalDateTime ahora = LocalDateTime.now(zonaHoraria());
+            LocalDateTime limiteEnvejecimiento = ahora.minusMinutes(umbralMinutos);
+
+            boolean turnoEnConjuntoPreferente = turno.getCategoria().isEsPreferente()
+                    || turno.getFechaIngreso().isBefore(limiteEnvejecimiento);
+
+            List<Turno> enEspera = turnoRepository.findByServicioIdAndEstadoOrderByFechaIngresoAscIdAsc(
+                    turno.getServicio().getId(), EstadoTurno.EN_ESPERA);
+
+            int delante = 0;
+            for (Turno t : enEspera) {
+                if (t.getId().equals(turno.getId())) {
+                    continue;
+                }
+                boolean envejecido = !t.getCategoria().isEsPreferente()
+                        && t.getFechaIngreso().isBefore(limiteEnvejecimiento);
+                boolean enConjuntoPreferente = t.getCategoria().isEsPreferente() || envejecido;
+                boolean mismoConjunto = enConjuntoPreferente == turnoEnConjuntoPreferente;
+                boolean vaAntes = t.getFechaIngreso().isBefore(turno.getFechaIngreso())
+                        || (t.getFechaIngreso().isEqual(turno.getFechaIngreso()) && t.getId() < turno.getId());
+                if (mismoConjunto && vaAntes) {
+                    delante++;
+                }
+            }
+            posicionEnFila = delante;
+
+            Double promedio = turnoRepository.promedioEsperaMinutos(turno.getServicio().getId(),
+                    LocalDate.now(zonaHoraria()).minusDays(30), LocalDate.now(zonaHoraria()));
+            double minutosPorTurno = promedio != null ? promedio : 5.0;
+            tiempoEstimadoMinutos = (int) Math.ceil((delante + 1) * minutosPorTurno);
+        }
+
+        return new ConsultaTurnoPublicoDTO(
+                turno.getCodigo(),
+                turno.getServicio().getNombre(),
+                turno.getCategoria().getNombre(),
+                turno.getCategoria().isEsPreferente(),
+                turno.getEstado().name(),
+                turno.getModulo() != null ? turno.getModulo().getNombre() : null,
+                posicionEnFila,
+                tiempoEstimadoMinutos);
     }
 
     private Usuario cargarUsuario(String username) {
