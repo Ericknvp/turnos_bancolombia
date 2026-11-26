@@ -1,32 +1,46 @@
-# React + TypeScript + Vite
+# Frontend – Sistema de turnos Bancolombia
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Este proyecto corresponde al frontend del sistema de atención por turnos de Bancolombia, desarrollado con React y TypeScript utilizando Vite.
 
-Currently, two official plugins are available:
+La aplicación permite interactuar con el sistema de turnos desde una interfaz web, facilitando la gestión de usuarios, módulos, servicios y la atención de turnos según las prioridades establecidas.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tecnologías utilizadas
 
-## React Compiler
+- React
+- TypeScript
+- Vite
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Requisitos
 
-## Expanding the Oxlint configuration
+- Node.js instalado.
+- npm instalado.
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## Instalación
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+Clona el repositorio y ejecuta los siguientes comandos desde la carpeta del proyecto:
+
+```bash
+npm install
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Cómo ejecutar el proyecto
+
+Para iniciar la aplicación en modo desarrollo:
+
+```bash
+npm run dev
+```
+
+Vite mostrará la dirección local donde puedes abrir la aplicación desde el navegador.
+
+## Compilación
+
+Para generar la versión de producción:
+
+```bash
+npm run build
+```
+
+## Notas
+
+El frontend se conecta con el backend desarrollado en Spring Boot para consultar y gestionar la información del sistema de turnos.
